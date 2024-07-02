@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 
@@ -8,9 +9,12 @@ const JUMP_VELOCITY = -1200.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var can_control : bool = true
 
 
 func _physics_process(delta):
+	if not can_control: return
+	
 	# Animations
 	if (velocity.x > 1 || velocity.x < -1):
 		animated_sprite_2d.animation = "Walk"
@@ -42,3 +46,21 @@ func _physics_process(delta):
 	move_and_slide()
 	if (was_on_floor == !is_on_floor()):
 		coyote_timer.start()
+
+
+func handle_danger() -> void:
+	print("Player died")
+	visible = false
+	can_control = false 
+	
+	await get_tree().create_timer(1).timeout
+	reset_player()
+
+func reset_player() -> void:
+	global_position = Vector2(200,200)
+	visible = true
+	can_control = true
+	
+	
+	
+	
