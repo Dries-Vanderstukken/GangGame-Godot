@@ -115,7 +115,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Idle",
-"speed": 5.0
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -144,7 +144,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Jump",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -209,23 +209,33 @@ animations = [{
 }],
 "loop": true,
 "name": &"Walk",
-"speed": 5.0
+"speed": 24.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_67o1n"]
-size = Vector2(53.3333, 91.6667)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j0lyu"]
+radius = 19.57
+height = 89.57
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 texture_filter = 1
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.4, 0.4)
 script = ExtResource("1_edfup")
+metadata/_edit_horizontal_guides_ = [44.0]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_rr0yt")
-animation = &"Idle"
+animation = &"Jump"
+autoplay = "Idle"
+frame_progress = 0.234327
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2.38419e-06, 2.5)
+position = Vector2(-1.90735e-06, 12.5)
 scale = Vector2(3, 3)
-shape = SubResource("RectangleShape2D_67o1n")
+shape = SubResource("CapsuleShape2D_j0lyu")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true

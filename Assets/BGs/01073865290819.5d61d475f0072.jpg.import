@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8tmlmj3tip0q"
-path="res://.godot/imported/merezjinn.png-aaaf367d5078c6c76a9e57208ca8184d.ctex"
+uid="uid://cjtiocmex0kre"
+path="res://.godot/imported/01073865290819.5d61d475f0072.jpg-b1ace1a46421336ad02d0ba43de19e44.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/merezjinn.png"
-dest_files=["res://.godot/imported/merezjinn.png-aaaf367d5078c6c76a9e57208ca8184d.ctex"]
+source_file="res://Assets/BGs/01073865290819.5d61d475f0072.jpg"
+dest_files=["res://.godot/imported/01073865290819.5d61d475f0072.jpg-b1ace1a46421336ad02d0ba43de19e44.ctex"]
 
 [params]
 
