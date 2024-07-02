@@ -4,6 +4,7 @@ extends CharacterBody2D
 
 const SPEED = 500.0
 const JUMP_VELOCITY = -1200.0
+var gravity_multiplier = 1
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var coyote_timer = $CoyoteTimer
 
@@ -21,17 +22,25 @@ func _physics_process(delta):
 	else:
 		animated_sprite_2d.animation = "Idle"
 		
+	# Faster fall after jump height reached
+	if velocity.y > 0:
+		gravity_multiplier += 0.5
+		
+	# Smaller jumps if jump button released
+	if Input.is_action_just_released("Jump") and velocity.y < -300:
+		gravity_multiplier += 10
+		
 	# Add the gravity.
 	if not is_on_floor():
-		velocity.y += gravity * delta
+		velocity.y += gravity * delta * gravity_multiplier
+		gravity_multiplier = 1
 		animated_sprite_2d.animation = "Jump"
 
 	# Handle jump.
 	if Input.is_action_just_pressed("Jump") and (is_on_floor() || !coyote_timer.is_stopped()):
 		velocity.y = JUMP_VELOCITY
-
+		
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("Left", "Right")
 	if direction:
 		velocity.x = direction * SPEED
@@ -49,7 +58,7 @@ func _physics_process(delta):
 
 
 func handle_danger() -> void:
-	print("Player died")
+	print("Faster than recall")
 	visible = false
 	can_control = false 
 	

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://lovdra72f76v" path="res://Scenes/Entities/Obstacles/dangerzone.tscn" id="2_5eg0k"]
 [ext_resource type="Texture2D" uid="uid://dfb4l73tgwpqm" path="res://Assets/Mossy tilesets/Mossy - TileSet.png" id="2_ytjvw"]
 [ext_resource type="PackedScene" uid="uid://cxstvx02n2lbo" path="res://Scenes/Entities/PlayerCharacter/main_char.tscn" id="3_g6ddo"]
-[ext_resource type="PackedScene" uid="uid://beak2s7jmaycv" path="res://parallax_background.tscn" id="3_onfhg"]
+[ext_resource type="PackedScene" uid="uid://ia50j55mkekc" path="res://Assets/Paralax BG/parallax_background.tscn" id="3_onfhg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1kqkt"]
 texture = ExtResource("2_ytjvw")
