@@ -5,16 +5,17 @@ extends CharacterBody2D
 var can_control : bool = true
  
 #Shenanigans to make the dash work
-const dashspeed = 2000
-const dashlength = 0.1
+const dashspeed = 2500.0
+const dashlength = 0.075
 const dashcooldown = 0.3
 var can_dash: bool = true
+var just_dashed: bool = false
 @onready var dash = $Dash 
  
 #Gravity and normal movement
 const normalspeed = 500.0
 const JUMP_VELOCITY = -1200.0
-var gravity_multiplier = 1
+var gravity_multiplier = 1.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var coyote_timer = $CoyoteTimer
@@ -25,13 +26,14 @@ func _physics_process(delta):
 	#reset dash on floor
 	if is_on_floor():
 		can_dash = true
- 
-	if Input.is_action_just_pressed("Dash") and dash.on_cooldown() and can_dash:
+	
+	# Dashing
+	if Input.is_action_just_pressed("Dash") and !dash.on_cooldown() and can_dash:
 		dash.start_dash(dashlength, dashcooldown)
 		if not is_on_floor():
 			can_dash = false
 	var SPEED = dashspeed if dash.is_dashing() else normalspeed
- 
+	
 	# Faster fall after jump height reached
 	if velocity.y > 0:
 		gravity_multiplier += 0.5
@@ -63,7 +65,15 @@ func _physics_process(delta):
 			animated_sprite_2d.flip_h = 1
 	else:
 		velocity.x = move_toward(velocity.x, 0, 50)
- 	
+	
+	#stopping dash speed even if direction keys arent pressed
+	if dash.is_dashing(): 
+		just_dashed = true
+	elif (!dash.is_dashing() and just_dashed):
+		direction = velocity.x / abs(velocity.x)
+		velocity.x = direction * normalspeed
+		just_dashed = false
+	
 	# Animation
 	if Input.is_action_just_pressed("Dash") and dash.is_dashing():
 		animated_sprite_2d.animation = "Dash"

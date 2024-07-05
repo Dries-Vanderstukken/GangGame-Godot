@@ -13,4 +13,4 @@ func is_dashing():
 	return !timer.is_stopped()
 
 func on_cooldown():
-	return cooldown_timer.is_stopped()
+	return !cooldown_timer.is_stopped()
